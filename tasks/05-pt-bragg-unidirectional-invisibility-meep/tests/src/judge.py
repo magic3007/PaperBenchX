@@ -305,6 +305,13 @@ TOOLS = [{'type': 'function', 'function': {
         'offset': {'type': 'integer', 'minimum': 0}, 'limit': {'type': 'integer', 'minimum': 1, 'maximum': 20000}},
         'required': ['root', 'operation'], 'additionalProperties': False}}}]
 
+FINAL_JSON_RETRY = (
+    'Judgment format rejected: the final response was not one JSON object. Reply with only a single JSON object containing '
+    '"unit_scores", "evidence_access", "evidence_paths", "unit_evidence_paths" and "reason". Do not add prose, headings '
+    'or code fences. "evidence_paths" must contain only the canonical file paths you actually read with the tools; a '
+    'directory name or a listing is not a citation.'
+)
+
 
 def post(configuration, payload):
     endpoint = configuration['JUDGE_BASE_URL'].rstrip('/')
@@ -375,7 +382,12 @@ def score_check(task, check, public_text, configuration, roots, output, blocked_
             content = message.get('content') or ''
             if content.strip().startswith('```'):
                 content = content.strip().split('\n', 1)[1].rsplit('```', 1)[0]
-            judgment = json.loads(content)
+            try:
+                judgment = json.loads(content)
+            except json.JSONDecodeError:
+                messages.append({'role': 'user', 'content': FINAL_JSON_RETRY})
+                trace.append({'validation_error': 'not_json'})
+                continue
             scores = judgment.get('unit_scores', {})
             if set(scores) != set(units) or any(type(score) is not int or score not in (0, 1) for score in scores.values()):
                 raise ValueError('Judge returned invalid unit scores')
