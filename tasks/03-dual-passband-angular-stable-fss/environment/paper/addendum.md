@@ -517,7 +517,7 @@ runtime and network settings for their own license and record the actual
 runtime identity privately, without putting credentials in outputs. These
 deployment settings do not change the scientific model or acceptance rules.
 
-The Dockerfile expects the ANSYS v251 installation and its Python runtime,
+The Dockerfile expects the ANSYS v261 installation and its Python runtime,
 including the specified PyAEDT package. A pinned base image or an image
 identifier alone does not prove a portable clean build, correct license
 access, or permission to redistribute an image. Some dependency layers are

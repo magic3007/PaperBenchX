@@ -30,15 +30,14 @@ RUN test "$PBX_DOWNLOAD_TIMEOUT" -gt 0 && \
 
 WORKDIR /home
 
-ENV ANSYS_PYTHON=/ansys_inc/v251/AnsysEM/commonfiles/CPython/3_10/linx64/Release/python/bin/python3.10 \
-    PYAEDT_USE_PRE_GRPC_ARGS=True \
+ENV ANSYS_PYTHON=/ansys_inc/v261/AnsysEM/commonfiles/CPython/3_10/linx64/Release/python/bin/python3.10 \
     PYAEDT_LOCAL_SETTINGS_PATH=/opt/hfss-verifier-runtime-v1/pyaedt_settings.yaml \
     PYTHONDONTWRITEBYTECODE=1
 RUN dnf install -y curl ca-certificates python3-pip procps-ng shadow-utils util-linux libseccomp && \
     "$ANSYS_PYTHON" -m pip install --no-cache-dir pyaedt==1.4.0 'protobuf>=4.25.8,<5' && \
     mkdir -p /opt/hfss-verifier-runtime-v1 && \
     printf '%s\n' 'grpc:' '  grpc_secure_mode: false' '  grpc_listen_all: false' 'general:' '  desktop_launch_timeout: 180' > /opt/hfss-verifier-runtime-v1/pyaedt_settings.yaml && \
-    printf '%s\n' 'import os, sys' 'os.environ["PYAEDT_USE_PRE_GRPC_ARGS"] = "True"' 'os.environ["PYAEDT_LOCAL_SETTINGS_PATH"] = "/opt/hfss-verifier-runtime-v1/pyaedt_settings.yaml"' 'os.environ["PYTHONDONTWRITEBYTECODE"] = "1"' 'sys.dont_write_bytecode = True' > "$($ANSYS_PYTHON -c 'import site; print(site.getsitepackages()[0])')/hfss_verifier_runtime_v1_bootstrap.py" && \
+    printf '%s\n' 'import os, sys' 'os.environ["PYAEDT_LOCAL_SETTINGS_PATH"] = "/opt/hfss-verifier-runtime-v1/pyaedt_settings.yaml"' 'os.environ["PYTHONDONTWRITEBYTECODE"] = "1"' 'sys.dont_write_bytecode = True' > "$($ANSYS_PYTHON -c 'import site; print(site.getsitepackages()[0])')/hfss_verifier_runtime_v1_bootstrap.py" && \
     printf '%s\n' 'import hfss_verifier_runtime_v1_bootstrap' > "$($ANSYS_PYTHON -c 'import site; print(site.getsitepackages()[0])')/hfss_verifier_runtime_v1.pth" && \
     "$ANSYS_PYTHON" -m pip install --no-cache-dir 'openai>=1.40,<2' 'httpx>=0.27' && \
     ln -sf "$ANSYS_PYTHON" /usr/local/bin/python3 && \
