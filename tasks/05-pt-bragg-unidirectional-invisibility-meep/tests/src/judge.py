@@ -325,7 +325,7 @@ def post(configuration, payload):
             with urllib.request.urlopen(request, timeout=180) as response:
                 return json.load(response)
         except urllib.error.HTTPError as error:
-            if error.code not in (408, 429, 500, 502, 503, 504) or attempt == 2:
+            if error.code not in (408, 429, 500, 502, 503, 504, 529) or attempt == 2:
                 raise RuntimeError(f'Judge HTTP status {error.code}; credentials/response body suppressed') from None
         except (TimeoutError, urllib.error.URLError):
             if attempt == 2:
