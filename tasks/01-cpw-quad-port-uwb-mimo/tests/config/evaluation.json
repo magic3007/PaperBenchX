@@ -16,7 +16,7 @@
     "schema_version": 2,
     "contract_version": "hfss-evidence",
     "task_id": "01-cpw-quad-port-uwb-mimo",
-    "source_rubric_sha256": "a644132c3d08908e1fe1e09db16062e12976c03f1f976c1ea4dcabca0aabaf46",
+    "source_rubric_sha256": "678232b00061ea4932d15c91cff8456b75ceb2c2021f61b97c381a791fa9e70e",
     "variants": [
       "mimo_final",
       "single_initial",

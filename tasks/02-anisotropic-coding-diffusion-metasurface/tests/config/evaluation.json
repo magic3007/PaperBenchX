@@ -16,7 +16,7 @@
     "schema_version": 2,
     "contract_version": "hfss-evidence",
     "task_id": "02-anisotropic-coding-diffusion-metasurface",
-    "source_rubric_sha256": "d624aca1ca0b06c02c6cca6f39ceec3d9fd8bdf35327909f96380020eed33670",
+    "source_rubric_sha256": "db023d2cb4253f9898ce1e8f1cfbda3c175a4992efbb817dc33a9f98a19d477b",
     "variants": [
       "unit_normal",
       "unit_tm15",

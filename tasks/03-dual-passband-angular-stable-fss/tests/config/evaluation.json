@@ -17,7 +17,7 @@
     "schema_version": 2,
     "contract_version": "hfss-evidence-v3-platform-validation",
     "task_id": "03-dual-passband-angular-stable-fss",
-    "source_rubric_sha256": "07744b0f81b7d0d6c3e5e0a07b7d1eb666f56b1afd7202fd89ef162f499c3b8f",
+    "source_rubric_sha256": "8e7729ee5a240c4b29d001c73c9ffc517e871ab792e9e6661cd0187c8539e0d6",
     "variants": [
       "te_00",
       "te_30",
